@@ -8,12 +8,12 @@ import com.example.drcafe.database.model.Question
 @Dao
 interface QuestionDao {
 
-    @Query("SELECT * FROM questions")
+    @Query("SELECT * FROM Questions")
     fun getAllQuestions(): List<Question>
 
-    @Query("SELECT * FROM questions WHERE id=:id")
+    @Query("SELECT * FROM Questions WHERE id=:id")
     fun getQuestion(id: Int): Question
 
     @Insert
-    fun insertQuestion(question: Question)
+    suspend fun insertQuestion(question: Question)
 }

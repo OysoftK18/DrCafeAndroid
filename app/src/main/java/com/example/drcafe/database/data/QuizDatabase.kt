@@ -4,27 +4,28 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import com.example.drcafe.database.model.Answer
 import com.example.drcafe.database.model.Question
+import com.example.drcafe.database.network.AnswerDao
 import com.example.drcafe.database.network.QuestionDao
-import com.example.drcafe.utils.AnswerTypeConverter
 
-@Database(entities = [Question::class], version = 1, exportSchema = false)
-@TypeConverters(AnswerTypeConverter::class)
-abstract class QuestionsDatabase : RoomDatabase() {
+@Database(entities = [Question::class, Answer::class], version = 1, exportSchema = false)
+abstract class QuizDatabase : RoomDatabase() {
 
     abstract fun questionDao(): QuestionDao
+
+    abstract fun answerDao(): AnswerDao
 
     companion object {
 
         @Volatile
-        private var INSTANCE: QuestionsDatabase? = null
+        private var INSTANCE: QuizDatabase? = null
 
-        fun getDatabase(context: Context): QuestionsDatabase {
+        fun getDatabase(context: Context): QuizDatabase {
             return INSTANCE ?: synchronized(this) {
                 Room.databaseBuilder(
                     context = context,
-                    klass = QuestionsDatabase::class.java,
+                    klass = QuizDatabase::class.java,
                     name = "DrCafeQuiz"
                 )
                     .fallbackToDestructiveMigration()

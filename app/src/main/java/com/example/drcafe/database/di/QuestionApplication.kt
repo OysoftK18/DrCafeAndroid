@@ -4,10 +4,10 @@ import android.app.Application
 
 class QuestionApplication: Application(){
 
-    lateinit var container: QuestionContainer
+    lateinit var container: QuizContainer
 
     override fun onCreate() {
         super.onCreate()
-        container = DefaultQuestionContainer(this)
+        container = DefaultQuizContainer(this)
     }
 }
