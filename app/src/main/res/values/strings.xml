@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DrCafe</string>
+    <string name="return_last_question">Return last question</string>
+    <string name="next_question">Next question</string>
+    <string name="question_number">"Question number "</string>
+    <string name="number_question">#%1$s</string>
+</resources>
