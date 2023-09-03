@@ -1,4 +1,4 @@
-package com.example.drcafe.ViewModel
+package com.example.drcafe.viewmodels
 
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer

@@ -8,10 +8,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.drcafe.Screen.Testing
-import com.example.drcafe.ViewModel.AppViewModelProvider
-import com.example.drcafe.ViewModel.DatabaseManagerViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.drcafe.screens.HomeScreen
+import com.example.drcafe.screens.AddQuestion
+import com.example.drcafe.screens.DataBaseManager
 import com.example.drcafe.ui.theme.DrCafeTheme
+import com.example.drcafe.utils.AddQuestion
+import com.example.drcafe.utils.DatabaseManager
+import com.example.drcafe.utils.Home
+import com.example.drcafe.viewmodels.AppViewModelProvider
+import com.example.drcafe.viewmodels.DatabaseManagerViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +31,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
-                    Testing(viewModel)
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = Home.ROUTE){
+                        composable(Home.ROUTE){
+                            HomeScreen(navController)
+                        }
+                        composable(AddQuestion.ROUTE){
+                            val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
+                            AddQuestion(viewModel = viewModel)
+                        }
+                        composable(DatabaseManager.ROUTE){
+                            val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
+                            DataBaseManager(viewModel.questionState){
+                                viewModel.deleteQuestion(it)
+                            }
+                        }
+                    }
                 }
             }
         }
