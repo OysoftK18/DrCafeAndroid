@@ -19,3 +19,8 @@ object DatabaseManager: NavigationSetter{
 
     override val ROUTE: String = "databaseManager"
 }
+
+object AddAnswer: NavigationSetter{
+
+    override val ROUTE: String = "addAnswer"
+}

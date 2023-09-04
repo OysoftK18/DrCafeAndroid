@@ -11,10 +11,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.drcafe.screens.AddAnswer
 import com.example.drcafe.screens.HomeScreen
 import com.example.drcafe.screens.AddQuestion
 import com.example.drcafe.screens.DataBaseManager
 import com.example.drcafe.ui.theme.DrCafeTheme
+import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
 import com.example.drcafe.utils.DatabaseManager
 import com.example.drcafe.utils.Home
@@ -42,9 +44,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(DatabaseManager.ROUTE){
                             val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
-                            DataBaseManager(viewModel.questionState){
+                            DataBaseManager(viewModel.questionState, navController = navController){
                                 viewModel.deleteQuestion(it)
                             }
+                        }
+                        composable(AddAnswer.ROUTE){
+                            AddAnswer()
                         }
                     }
                 }

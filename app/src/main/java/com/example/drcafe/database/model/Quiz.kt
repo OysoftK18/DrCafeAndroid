@@ -12,7 +12,7 @@ data class Question(
 
 @Entity(tableName = "Answers")
 data class Answer(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val answer: String,
     val value: Int,
     val questionOwner: Int

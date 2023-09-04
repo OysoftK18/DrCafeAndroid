@@ -17,44 +17,34 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.example.drcafe.R
-import com.example.drcafe.database.model.Question
-import com.example.drcafe.viewmodels.DatabaseManagerViewModel
+import com.example.drcafe.database.model.Answer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddQuestion(
-    question: Question = Question(id = 1, question = "", questionSection = 1),
-    viewModel: DatabaseManagerViewModel
-) {
+fun AddAnswer(answer: Answer = Answer(answer = "", value = 0, questionOwner = 0), questionOwner: Int = 0) {
 
-    var questionText by remember {
-        mutableStateOf(question.question)
+    var answerText by remember {
+        mutableStateOf(answer.answer)
     }
-    var questionLevel by remember {
-        mutableStateOf(question.questionSection.toString())
+    var answerPoints by remember {
+        mutableStateOf(answer.value.toString())
     }
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         OutlinedTextField(
-            value = questionText,
-            onValueChange = { questionText = it },
-            label = { Text(text = stringResource(R.string.question)) }
+            value = answerText,
+            onValueChange = { answerText = it },
+            label = { Text(text = stringResource(R.string.answer)) }
         )
         OutlinedTextField(
-            value = questionLevel,
-            onValueChange = { questionLevel = it },
-            label = { Text(text = stringResource(R.string.level)) },
+            value = answerPoints,
+            onValueChange = { answerPoints = it },
+            label = { Text(text = stringResource(R.string.points)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
-        Button(onClick = {
-            viewModel.insertQuestion(
-                question = Question(
-                    question = questionText,
-                    questionSection = questionLevel.toInt()
-                )
-            )
-        }) {
-            Text(text = stringResource(R.string.add_question))
+        Text(text = "Question owner: $questionOwner")
+        Button(onClick = {}) {
+            Text(text = stringResource(R.string.add_answer))
 
         }
     }
