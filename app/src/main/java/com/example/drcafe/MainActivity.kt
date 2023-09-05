@@ -22,6 +22,7 @@ import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
 import com.example.drcafe.utils.DatabaseManager
 import com.example.drcafe.utils.Home
+import com.example.drcafe.viewmodels.AddQuestionViewModel
 import com.example.drcafe.viewmodels.AppViewModelProvider
 import com.example.drcafe.viewmodels.DatabaseManagerViewModel
 
@@ -60,8 +61,12 @@ class MainActivity : ComponentActivity() {
                                 navArgument("questionOwner") { type = NavType.StringType })
                         ) {
                             val questionId = it.arguments?.getString("questionOwner")
+
+                            val viewModel: AddQuestionViewModel = viewModel(factory = AppViewModelProvider.factory)
                             questionId?.let {
-                                AddAnswer(questionOwner = it)
+                                AddAnswer(questionOwner = it, navController = navController){
+                                    viewModel.insertAnswer(it)
+                                }
                             }
                         }
                     }

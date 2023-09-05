@@ -9,9 +9,15 @@ import com.example.drcafe.database.di.QuestionApplication
 object AppViewModelProvider {
     val factory = viewModelFactory {
         initializer {
-            val cardsRepository = questionApplication().container.quizRepository
+            val quizRepository = questionApplication().container.quizRepository
 
-            DatabaseManagerViewModel(cardsRepository)
+            DatabaseManagerViewModel(quizRepository)
+        }
+
+        initializer {
+            val quizRepository = questionApplication().container.quizRepository
+
+            AddQuestionViewModel(quizRepository)
         }
     }
 }

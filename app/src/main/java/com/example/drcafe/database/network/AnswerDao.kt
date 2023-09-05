@@ -15,5 +15,5 @@ interface AnswerDao {
     fun getAnswersFromQuestion(ownerId: Int): List<Answer>
 
     @Insert
-    fun insertAnswers(answer: Answer)
+    suspend fun insertAnswers(answer: Answer)
 }

@@ -13,6 +13,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -44,7 +45,7 @@ fun SuccessDataBaseLoader(
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(items = questionList) { Question ->
             Card(modifier = Modifier.fillMaxWidth()) {
-                Row {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = stringResource(id = R.string.number_question, Question.id))
                     Text(text = Question.question)
                     Button(onClick = { navController.navigate("${AddAnswer.ROUTE}/${Question.id}") }) {

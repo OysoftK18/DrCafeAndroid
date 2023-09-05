@@ -30,7 +30,7 @@ interface QuizRepository {
     fun getAnswersFromQuestion(ownerId: Int): List<Answer>
 
     @Insert
-    fun insertAnswers(answer: Answer)
+    suspend fun insertAnswers(answer: Answer)
 
 
 }
@@ -54,5 +54,5 @@ class OfflineQuizRepository(private val questionDao: QuestionDao, private val an
 
     override fun getAnswersFromQuestion(ownerId: Int): List<Answer> = answerDao.getAnswersFromQuestion(ownerId)
 
-    override fun insertAnswers(answer: Answer) = answerDao.insertAnswers(answer = answer)
+    override suspend fun insertAnswers(answer: Answer) = answerDao.insertAnswers(answer = answer)
 }

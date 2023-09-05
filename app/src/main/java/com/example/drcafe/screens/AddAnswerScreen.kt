@@ -16,18 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Answer
+import com.example.drcafe.utils.Home
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddAnswer(answer: Answer = Answer(answer = "", value = 0, questionOwner = 0), questionOwner: String) {
+fun AddAnswer(navController: NavController, questionOwner: String, addAnswer: (Answer) -> Unit) {
 
     var answerText by remember {
-        mutableStateOf(answer.answer)
+        mutableStateOf("")
     }
     var answerPoints by remember {
-        mutableStateOf(answer.value.toString())
+        mutableStateOf(0)
     }
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -37,15 +39,23 @@ fun AddAnswer(answer: Answer = Answer(answer = "", value = 0, questionOwner = 0)
             label = { Text(text = stringResource(R.string.answer)) }
         )
         OutlinedTextField(
-            value = answerPoints,
-            onValueChange = { answerPoints = it },
+            value = answerPoints.toString(),
+            onValueChange = { answerPoints = it.toInt() },
             label = { Text(text = stringResource(R.string.points)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Text(text = "Question owner: $questionOwner")
-        Button(onClick = {}) {
+        Button(onClick = {
+            addAnswer(
+                Answer(
+                    answer = answerText,
+                    value = answerPoints,
+                    questionOwner = questionOwner.toInt()
+                )
+            )
+            navController.navigate(Home.ROUTE)
+        }) {
             Text(text = stringResource(R.string.add_answer))
-
         }
     }
 }
