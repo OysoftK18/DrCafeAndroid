@@ -47,7 +47,7 @@ fun SuccessDataBaseLoader(
                 Row {
                     Text(text = stringResource(id = R.string.number_question, Question.id))
                     Text(text = Question.question)
-                    Button(onClick = { navController.navigate(AddAnswer.ROUTE) }) {
+                    Button(onClick = { navController.navigate("${AddAnswer.ROUTE}/${Question.id}") }) {
                         Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = stringResource(R.string.add)

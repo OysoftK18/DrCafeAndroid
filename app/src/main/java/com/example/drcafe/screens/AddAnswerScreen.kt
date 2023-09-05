@@ -21,7 +21,7 @@ import com.example.drcafe.database.model.Answer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddAnswer(answer: Answer = Answer(answer = "", value = 0, questionOwner = 0), questionOwner: Int = 0) {
+fun AddAnswer(answer: Answer = Answer(answer = "", value = 0, questionOwner = 0), questionOwner: String) {
 
     var answerText by remember {
         mutableStateOf(answer.answer)

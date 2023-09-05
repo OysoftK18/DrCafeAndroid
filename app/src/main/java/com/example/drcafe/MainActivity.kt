@@ -8,9 +8,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.drcafe.screens.AddAnswer
 import com.example.drcafe.screens.HomeScreen
 import com.example.drcafe.screens.AddQuestion
@@ -34,22 +36,33 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Home.ROUTE){
-                        composable(Home.ROUTE){
+                    NavHost(navController = navController, startDestination = Home.ROUTE) {
+                        composable(Home.ROUTE) {
                             HomeScreen(navController)
                         }
-                        composable(AddQuestion.ROUTE){
-                            val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
+                        composable(AddQuestion.ROUTE) {
+                            val viewModel: DatabaseManagerViewModel =
+                                viewModel(factory = AppViewModelProvider.factory)
                             AddQuestion(viewModel = viewModel)
                         }
-                        composable(DatabaseManager.ROUTE){
-                            val viewModel: DatabaseManagerViewModel = viewModel(factory = AppViewModelProvider.factory)
-                            DataBaseManager(viewModel.questionState, navController = navController){
+                        composable(DatabaseManager.ROUTE) {
+                            val viewModel: DatabaseManagerViewModel =
+                                viewModel(factory = AppViewModelProvider.factory)
+                            DataBaseManager(
+                                viewModel.questionState,
+                                navController = navController
+                            ) {
                                 viewModel.deleteQuestion(it)
                             }
                         }
-                        composable(AddAnswer.ROUTE){
-                            AddAnswer()
+                        composable(
+                            "${AddAnswer.ROUTE}/{questionOwner}", arguments = listOf(
+                                navArgument("questionOwner") { type = NavType.StringType })
+                        ) {
+                            val questionId = it.arguments?.getString("questionOwner")
+                            questionId?.let {
+                                AddAnswer(questionOwner = it)
+                            }
                         }
                     }
                 }
