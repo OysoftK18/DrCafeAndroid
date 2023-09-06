@@ -47,12 +47,6 @@ fun AddQuestion(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Button(onClick = {
-            viewModel.insertQuestion(
-                question = Question(
-                    question = questionText,
-                    questionSection = questionLevel.toInt()
-                )
-            )
         }) {
             Text(text = stringResource(R.string.add_question))
 

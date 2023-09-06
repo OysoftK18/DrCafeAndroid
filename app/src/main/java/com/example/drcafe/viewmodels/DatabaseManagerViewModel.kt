@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.drcafe.database.data.QuizRepository
+import com.example.drcafe.database.model.Answer
 import com.example.drcafe.database.model.Question
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.lang.Exception
 
 sealed interface QuestionState {
@@ -35,12 +37,6 @@ class DatabaseManagerViewModel(private val quizRepository: QuizRepository) : Vie
         }
     }
 
-    fun insertQuestion(question: Question) {
-        viewModelScope.launch {
-            quizRepository.insertQuestion(question = question)
-        }
-    }
-
     fun deleteQuestion(question: Question) {
         viewModelScope.launch {
             quizRepository.removeQuestion(question = question)
@@ -51,4 +47,6 @@ class DatabaseManagerViewModel(private val quizRepository: QuizRepository) : Vie
             }
         }
     }
+
+    fun answersListOfQuestion(question: Question): List<Answer> = runBlocking { quizRepository.getAnswersFromQuestion(question.id) }
 }

@@ -12,7 +12,7 @@ interface AnswerDao {
     fun getAllAnswers(): List<Answer>
 
     @Query("SELECT * FROM Answers WHERE questionOwner=:ownerId")
-    fun getAnswersFromQuestion(ownerId: Int): List<Answer>
+    suspend  fun getAnswersFromQuestion(ownerId: Int): List<Answer>
 
     @Insert
     suspend fun insertAnswers(answer: Answer)

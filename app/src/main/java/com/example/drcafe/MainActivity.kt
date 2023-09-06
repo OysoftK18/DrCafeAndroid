@@ -50,11 +50,10 @@ class MainActivity : ComponentActivity() {
                             val viewModel: DatabaseManagerViewModel =
                                 viewModel(factory = AppViewModelProvider.factory)
                             DataBaseManager(
-                                viewModel.questionState,
-                                navController = navController
-                            ) {
-                                viewModel.deleteQuestion(it)
-                            }
+                                questionState = viewModel.questionState,
+                                navController = navController,
+                                viewModel = viewModel
+                            )
                         }
                         composable(
                             "${AddAnswer.ROUTE}/{questionOwner}", arguments = listOf(
@@ -62,9 +61,10 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val questionId = it.arguments?.getString("questionOwner")
 
-                            val viewModel: AddQuestionViewModel = viewModel(factory = AppViewModelProvider.factory)
+                            val viewModel: AddQuestionViewModel =
+                                viewModel(factory = AppViewModelProvider.factory)
                             questionId?.let {
-                                AddAnswer(questionOwner = it, navController = navController){
+                                AddAnswer(questionOwner = it, navController = navController) {
                                     viewModel.insertAnswer(it)
                                 }
                             }

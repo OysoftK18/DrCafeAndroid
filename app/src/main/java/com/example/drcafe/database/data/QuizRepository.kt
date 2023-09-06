@@ -27,7 +27,7 @@ interface QuizRepository {
     fun getAllAnswers(): List<Answer>
 
     @Query("SELECT * FROM Answers WHERE questionOwner=:ownerId")
-    fun getAnswersFromQuestion(ownerId: Int): List<Answer>
+    suspend fun getAnswersFromQuestion(ownerId: Int): List<Answer>
 
     @Insert
     suspend fun insertAnswers(answer: Answer)
@@ -52,7 +52,7 @@ class OfflineQuizRepository(private val questionDao: QuestionDao, private val an
     /** This is about the Answers*/
     override fun getAllAnswers(): List<Answer> = answerDao.getAllAnswers()
 
-    override fun getAnswersFromQuestion(ownerId: Int): List<Answer> = answerDao.getAnswersFromQuestion(ownerId)
+    override suspend  fun getAnswersFromQuestion(ownerId: Int): List<Answer> = answerDao.getAnswersFromQuestion(ownerId)
 
     override suspend fun insertAnswers(answer: Answer) = answerDao.insertAnswers(answer = answer)
 }
