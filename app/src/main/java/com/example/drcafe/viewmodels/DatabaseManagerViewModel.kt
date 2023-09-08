@@ -40,6 +40,7 @@ class DatabaseManagerViewModel(private val quizRepository: QuizRepository) : Vie
     fun deleteQuestion(question: Question) {
         viewModelScope.launch {
             quizRepository.removeQuestion(question = question)
+            quizRepository.deleteAnswersFromQuestion(question.id)
             questionState = try {
                 QuestionState.Success(quizRepository.getAllQuestions())
             } catch (e: Exception) {

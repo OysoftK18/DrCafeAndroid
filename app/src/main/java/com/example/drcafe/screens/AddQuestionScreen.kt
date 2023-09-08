@@ -16,15 +16,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.core.text.isDigitsOnly
+import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Question
-import com.example.drcafe.viewmodels.DatabaseManagerViewModel
+import com.example.drcafe.utils.DatabaseManager
+import com.example.drcafe.viewmodels.AddQuestionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddQuestion(
     question: Question = Question(id = 1, question = "", questionSection = 1),
-    viewModel: DatabaseManagerViewModel
+    viewModel: AddQuestionViewModel,
+    navController: NavController
 ) {
 
     var questionText by remember {
@@ -47,6 +51,14 @@ fun AddQuestion(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Button(onClick = {
+            if (questionLevel.isDigitsOnly() && questionText.isNotBlank())
+                viewModel.insertQuestion(
+                    Question(
+                        question = questionText,
+                        questionSection = questionLevel.toInt()
+                    )
+                )
+                navController.popBackStack(DatabaseManager.ROUTE, inclusive = false)
         }) {
             Text(text = stringResource(R.string.add_question))
 

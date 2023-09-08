@@ -16,4 +16,8 @@ interface AnswerDao {
 
     @Insert
     suspend fun insertAnswers(answer: Answer)
+
+    @Query("DELETE FROM Answers WHERE questionOwner=:ownerId")
+    suspend  fun deleteAnswersFromQuestion(ownerId: Int)
+
 }

@@ -32,10 +32,16 @@ interface QuizRepository {
     @Insert
     suspend fun insertAnswers(answer: Answer)
 
+    @Query("DELETE FROM Answers WHERE questionOwner=:ownerId")
+    suspend fun deleteAnswersFromQuestion(ownerId: Int)
+
 
 }
 
-class OfflineQuizRepository(private val questionDao: QuestionDao, private val answerDao: AnswerDao): QuizRepository{
+class OfflineQuizRepository(
+    private val questionDao: QuestionDao,
+    private val answerDao: AnswerDao
+) : QuizRepository {
 
 
     /** This is about the Questions*/
@@ -52,7 +58,11 @@ class OfflineQuizRepository(private val questionDao: QuestionDao, private val an
     /** This is about the Answers*/
     override fun getAllAnswers(): List<Answer> = answerDao.getAllAnswers()
 
-    override suspend  fun getAnswersFromQuestion(ownerId: Int): List<Answer> = answerDao.getAnswersFromQuestion(ownerId)
+    override suspend fun getAnswersFromQuestion(ownerId: Int): List<Answer> =
+        answerDao.getAnswersFromQuestion(ownerId)
 
     override suspend fun insertAnswers(answer: Answer) = answerDao.insertAnswers(answer = answer)
+
+    override suspend fun deleteAnswersFromQuestion(ownerId: Int) =
+        answerDao.deleteAnswersFromQuestion(ownerId)
 }

@@ -17,6 +17,12 @@ object AppViewModelProvider {
         initializer {
             val quizRepository = questionApplication().container.quizRepository
 
+            AddAnswerViewModel(quizRepository)
+        }
+
+        initializer {
+            val quizRepository = questionApplication().container.quizRepository
+
             AddQuestionViewModel(quizRepository)
         }
     }

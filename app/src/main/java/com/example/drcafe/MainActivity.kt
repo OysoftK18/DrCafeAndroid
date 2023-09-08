@@ -22,6 +22,7 @@ import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
 import com.example.drcafe.utils.DatabaseManager
 import com.example.drcafe.utils.Home
+import com.example.drcafe.viewmodels.AddAnswerViewModel
 import com.example.drcafe.viewmodels.AddQuestionViewModel
 import com.example.drcafe.viewmodels.AppViewModelProvider
 import com.example.drcafe.viewmodels.DatabaseManagerViewModel
@@ -42,9 +43,9 @@ class MainActivity : ComponentActivity() {
                             HomeScreen(navController)
                         }
                         composable(AddQuestion.ROUTE) {
-                            val viewModel: DatabaseManagerViewModel =
+                            val viewModel: AddQuestionViewModel =
                                 viewModel(factory = AppViewModelProvider.factory)
-                            AddQuestion(viewModel = viewModel)
+                            AddQuestion(viewModel = viewModel, navController = navController)
                         }
                         composable(DatabaseManager.ROUTE) {
                             val viewModel: DatabaseManagerViewModel =
@@ -61,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val questionId = it.arguments?.getString("questionOwner")
 
-                            val viewModel: AddQuestionViewModel =
+                            val viewModel: AddAnswerViewModel =
                                 viewModel(factory = AppViewModelProvider.factory)
                             questionId?.let {
                                 AddAnswer(questionOwner = it, navController = navController) {

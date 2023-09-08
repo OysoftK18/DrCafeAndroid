@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Answer
+import com.example.drcafe.utils.DatabaseManager
 import com.example.drcafe.utils.Home
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,7 +54,7 @@ fun AddAnswer(navController: NavController, questionOwner: String, addAnswer: (A
                     questionOwner = questionOwner.toInt()
                 )
             )
-            navController.navigate(Home.ROUTE)
+            navController.navigate(DatabaseManager.ROUTE)
         }) {
             Text(text = stringResource(R.string.add_answer))
         }
