@@ -12,6 +12,8 @@
     <string name="points">Points</string>
     <string name="add_question">Add question</string>
     <string name="add_answer">Add answer</string>
-    <string name="level">Level</string>
+    <string name="question_section">Question section</string>
     <string name="question">Question</string>
+    <string name="missing_question">Missing Question</string>
+    <string name="level_need_to_be_numbers_only">Level need to be numbers only</string>
 </resources>

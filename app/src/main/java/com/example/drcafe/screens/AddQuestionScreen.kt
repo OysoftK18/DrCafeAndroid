@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Question
 import com.example.drcafe.utils.DatabaseManager
+import com.example.drcafe.utils.Home
 import com.example.drcafe.viewmodels.AddQuestionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,26 +43,40 @@ fun AddQuestion(
         OutlinedTextField(
             value = questionText,
             onValueChange = { questionText = it },
-            label = { Text(text = stringResource(R.string.question)) }
+            label = {
+                if (questionText.isNotBlank()) {
+                    Text(text = stringResource(R.string.question))
+                } else {
+                    Text(text = stringResource(R.string.missing_question))
+                }
+            }
         )
         OutlinedTextField(
             value = questionLevel,
             onValueChange = { questionLevel = it },
-            label = { Text(text = stringResource(R.string.level)) },
+            label = {
+                if (questionLevel.isDigitsOnly()) {
+                    Text(text = stringResource(R.string.question_section))
+                } else {
+                    Text(text = stringResource(R.string.level_need_to_be_numbers_only))
+                }
+            },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
         Button(onClick = {
-            if (questionLevel.isDigitsOnly() && questionText.isNotBlank())
+            if (questionLevel.isDigitsOnly() && questionText.isNotBlank()) {
                 viewModel.insertQuestion(
                     Question(
                         question = questionText,
                         questionSection = questionLevel.toInt()
                     )
                 )
-                navController.popBackStack(DatabaseManager.ROUTE, inclusive = false)
+                navController.navigate(DatabaseManager.ROUTE) {
+                    popUpTo(Home.ROUTE)
+                }
+            }
         }) {
             Text(text = stringResource(R.string.add_question))
-
         }
     }
 }
