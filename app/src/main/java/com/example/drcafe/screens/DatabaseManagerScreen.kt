@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Button
@@ -75,14 +76,14 @@ fun SuccessDataBaseLoader(
 ) {
     var expanded by remember { mutableStateOf(-1) }
 
-    Scaffold(floatingActionButton ={
+    Scaffold(floatingActionButton = {
         SmallFloatingActionButton(onClick = { navController.navigate(AddQuestion.ROUTE) }) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(R.string.add)
             )
         }
-    } ) {
+    }) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -147,7 +148,12 @@ fun SuccessDataBaseLoader(
                                                 modifier = Modifier.weight(2f), text = it.answer,
                                                 color = MaterialTheme.colorScheme.onSecondary
                                             )
-                                            Row(modifier = Modifier.weight(2f)) {}
+                                            Icon(
+                                                modifier = Modifier.weight(0.5f),
+                                                imageVector = Icons.Default.Edit,
+                                                contentDescription = "Edit",
+                                                tint = MaterialTheme.colorScheme.onPrimary
+                                            )
                                         }
                                         Divider(
                                             modifier = Modifier.height(1.dp),
