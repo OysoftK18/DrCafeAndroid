@@ -20,7 +20,6 @@ import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Answer
 import com.example.drcafe.utils.DatabaseManager
-import com.example.drcafe.utils.Home
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +40,7 @@ fun AddAnswer(navController: NavController, questionOwner: String, addAnswer: (A
         )
         OutlinedTextField(
             value = answerPoints.toString(),
-            onValueChange = { answerPoints = it.toInt() },
+            onValueChange = { answerPoints = if (it.isNotBlank()) it.toInt() else 0},
             label = { Text(text = stringResource(R.string.points)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
         )
