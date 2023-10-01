@@ -3,6 +3,7 @@ package com.example.drcafe.database.data
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.drcafe.database.model.Answer
 import com.example.drcafe.database.model.Question
 import com.example.drcafe.database.network.AnswerDao
@@ -31,6 +32,12 @@ interface QuizRepository {
 
     @Insert
     suspend fun insertAnswers(answer: Answer)
+    @Update
+    suspend fun updateAnswers(answer: Answer)
+
+
+    @Query("SELECT * FROM Answers WHERE answer=:answer")
+    suspend  fun getAnswer(answer: String): Answer
 
     @Query("DELETE FROM Answers WHERE questionOwner=:ownerId")
     suspend fun deleteAnswersFromQuestion(ownerId: Int)
@@ -62,6 +69,8 @@ class OfflineQuizRepository(
         answerDao.getAnswersFromQuestion(ownerId)
 
     override suspend fun insertAnswers(answer: Answer) = answerDao.insertAnswers(answer = answer)
+    override suspend fun updateAnswers(answer: Answer) = answerDao.updateAnswers(answer = answer)
+    override suspend fun getAnswer(answer: String): Answer = answerDao.getAnswer(answer = answer)
 
     override suspend fun deleteAnswersFromQuestion(ownerId: Int) =
         answerDao.deleteAnswersFromQuestion(ownerId)

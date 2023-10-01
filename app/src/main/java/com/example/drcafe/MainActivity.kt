@@ -1,6 +1,7 @@
 package com.example.drcafe
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +18,12 @@ import com.example.drcafe.screens.AddAnswer
 import com.example.drcafe.screens.HomeScreen
 import com.example.drcafe.screens.AddQuestion
 import com.example.drcafe.screens.DataBaseManager
+import com.example.drcafe.screens.editAnswer
 import com.example.drcafe.ui.theme.DrCafeTheme
 import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
 import com.example.drcafe.utils.DatabaseManager
+import com.example.drcafe.utils.EditAnswer
 import com.example.drcafe.utils.Home
 import com.example.drcafe.viewmodels.AddAnswerViewModel
 import com.example.drcafe.viewmodels.AddQuestionViewModel
@@ -68,6 +71,23 @@ class MainActivity : ComponentActivity() {
                                 AddAnswer(questionOwner = it, navController = navController) {
                                     viewModel.insertAnswer(it)
                                 }
+                            }
+                        }
+                        composable("${EditAnswer.ROUTE}/{answer}", arguments = listOf(
+                            navArgument("answer") { type = NavType.StringType}
+                        )) {
+                            val answerName = it.arguments?.getString("answer")
+
+                            val viewModel: AddAnswerViewModel =
+                                viewModel(factory = AppViewModelProvider.factory)
+
+                            answerName?.let {
+                                val answer = viewModel.getAnswer(answerName)
+                                Log.d("Answer: ", answer.toString())
+                                editAnswer(navController = navController, answer = answer){
+                                    viewModel.editAnswer(it)
+                                }
+
                             }
                         }
                     }

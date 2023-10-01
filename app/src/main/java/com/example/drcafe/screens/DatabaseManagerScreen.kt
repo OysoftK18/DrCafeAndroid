@@ -42,6 +42,7 @@ import com.example.drcafe.R
 import com.example.drcafe.database.model.Question
 import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
+import com.example.drcafe.utils.EditAnswer
 import com.example.drcafe.viewmodels.DatabaseManagerViewModel
 import com.example.drcafe.viewmodels.QuestionState
 
@@ -148,12 +149,18 @@ fun SuccessDataBaseLoader(
                                                 modifier = Modifier.weight(2f), text = it.answer,
                                                 color = MaterialTheme.colorScheme.onSecondary
                                             )
-                                            Icon(
+                                            Button(
                                                 modifier = Modifier.weight(0.5f),
-                                                imageVector = Icons.Default.Edit,
-                                                contentDescription = "Edit",
-                                                tint = MaterialTheme.colorScheme.onPrimary
-                                            )
+                                                onClick = {
+                                                navController.navigate("${EditAnswer.ROUTE}/${it.answer}")
+                                            }) {
+                                                Icon(
+                                                    modifier = Modifier.fillMaxSize(),
+                                                    imageVector = Icons.Default.Edit,
+                                                    contentDescription = "Edit",
+                                                    tint = MaterialTheme.colorScheme.onPrimary
+                                                )
+                                            }
                                         }
                                         Divider(
                                             modifier = Modifier.height(1.dp),

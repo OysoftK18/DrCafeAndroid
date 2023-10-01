@@ -32,3 +32,9 @@ object AddAnswer: NavigationSetter{
     override val ROUTE: String = "addAnswer"
     override val ARGUMENTS: List<NamedNavArgument> = emptyList()
 }
+
+object EditAnswer: NavigationSetter{
+
+    override val ROUTE: String = "editAnswer"
+    override val ARGUMENTS: List<NamedNavArgument> = emptyList()
+}
