@@ -84,8 +84,8 @@ class MainActivity : ComponentActivity() {
                             answerName?.let {
                                 val answer = viewModel.getAnswer(answerName)
                                 Log.d("Answer: ", answer.toString())
-                                editAnswer(navController = navController, answer = answer){
-                                    viewModel.editAnswer(it)
+                                editAnswer(answer = answer){
+                                    viewModel.editAnswer(it, navController)
                                 }
 
                             }

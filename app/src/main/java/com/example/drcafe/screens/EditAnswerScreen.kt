@@ -23,7 +23,7 @@ import com.example.drcafe.utils.DatabaseManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editAnswer(navController: NavController, answer: Answer, editAnswer: (Answer) -> Unit) {
+fun editAnswer(answer: Answer, editAnswer: (Answer) -> Unit) {
 
     var answerText by remember {
         mutableStateOf(answer.answer)
@@ -53,7 +53,6 @@ fun editAnswer(navController: NavController, answer: Answer, editAnswer: (Answer
                     questionOwner = answer.questionOwner
                 )
             )
-            navController.navigate(DatabaseManager.ROUTE)
         }) {
             Text(text = stringResource(R.string.add_answer))
         }
