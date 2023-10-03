@@ -1,7 +1,6 @@
 package com.example.drcafe
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,10 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.drcafe.screens.AddAnswer
-import com.example.drcafe.screens.HomeScreen
 import com.example.drcafe.screens.AddQuestion
 import com.example.drcafe.screens.DataBaseManager
-import com.example.drcafe.screens.editAnswer
+import com.example.drcafe.screens.HomeScreen
+import com.example.drcafe.screens.EditAnswer
 import com.example.drcafe.ui.theme.DrCafeTheme
 import com.example.drcafe.utils.AddAnswer
 import com.example.drcafe.utils.AddQuestion
@@ -74,20 +73,19 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                         composable("${EditAnswer.ROUTE}/{answer}", arguments = listOf(
-                            navArgument("answer") { type = NavType.StringType}
+                            navArgument("answer") { type = NavType.StringType }
                         )) {
                             val answerName = it.arguments?.getString("answer")
 
                             val viewModel: AddAnswerViewModel =
                                 viewModel(factory = AppViewModelProvider.factory)
 
-                            answerName?.let {
-                                val answer = viewModel.getAnswer(answerName)
-                                Log.d("Answer: ", answer.toString())
-                                editAnswer(answer = answer){
+                            val answer = answerName?.let { it1 -> viewModel.getAnswer(it1) }
+
+                            if (answer != null) {
+                                EditAnswer(answer = answer) {
                                     viewModel.editAnswer(it, navController)
                                 }
-
                             }
                         }
                     }

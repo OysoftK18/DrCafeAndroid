@@ -16,14 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.navigation.NavController
 import com.example.drcafe.R
 import com.example.drcafe.database.model.Answer
-import com.example.drcafe.utils.DatabaseManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editAnswer(answer: Answer, editAnswer: (Answer) -> Unit) {
+fun EditAnswer(answer: Answer, editAnswer: (Answer) -> Unit) {
 
     var answerText by remember {
         mutableStateOf(answer.answer)
@@ -48,6 +46,7 @@ fun editAnswer(answer: Answer, editAnswer: (Answer) -> Unit) {
         Button(onClick = {
             editAnswer(
                 Answer(
+                    id= answer.id,
                     answer = answerText,
                     value = answerPoints,
                     questionOwner = answer.questionOwner
