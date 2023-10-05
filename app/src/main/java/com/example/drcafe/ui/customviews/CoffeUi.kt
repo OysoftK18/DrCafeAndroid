@@ -1,5 +1,6 @@
 package com.example.drcafe.ui.customviews
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -100,6 +102,17 @@ fun FullTrivia(answers: List<String> = listOf("","","")){
             }
         }
     }
+}
 
-
+@Preview
+@Composable
+fun SpotifyWireFrame(){
+    var title: String = ""
+    var description: String = ""
+    Column {
+        Image(painter = painterResource(id = androidx.core.R.id.accessibility_custom_action_14), contentDescription = "Spotify song image")
+        Text(text = "Title: $title")
+        Text(text = "Description: $description")
+        Image(painter = painterResource(id = androidx.core.R.id.accessibility_custom_action_14), contentDescription = "QR code")
+    }
 }
