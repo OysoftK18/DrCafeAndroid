@@ -7,3 +7,5 @@ That's why I got inspired on creating a quiz as if you were talking to my friend
 
 # Structure:
 In this project I tried to manage all using room, and also spotify librarie in order to get you a song that goes with your drink.
+
+# 
